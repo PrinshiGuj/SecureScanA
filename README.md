@@ -41,6 +41,7 @@ Security teams trust SecureScan A for:
 
 
 git clone https://github.com/PrinsGuj/securescana.git
+
 cd securescana
 
 python3 -m venv venv
@@ -66,3 +67,6 @@ sudo apt install zaproxy
 
 # Masscan (ultra-fast scanning)
 sudo apt install masscan
+
+<img width="1087" height="595" alt="ss 2" src="https://github.com/user-attachments/assets/12eb387c-56bb-4b4d-96a3-06248876f0ee" />
+<img width="1337" height="603" alt="ss 1" src="https://github.com/user-attachments/assets/dd873b7a-cf9b-4348-b627-e3d4018e2c33" />
