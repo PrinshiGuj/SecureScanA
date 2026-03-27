@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h5><i class="fas fa-search"></i> New Vulnerability Scan</h5>
+            </div>
+            <div class="card-body">
+                <form id="scanForm">
+                    <div class="mb-3">
+                        <label class="form-label">Target URL/IP</label>
+                        <input type="text" class="form-control" name="target" placeholder="https://example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Scan Type</label>
+                        <select class="form-select" name="target_type">
+                            <option value="web">Web Application</option>
+                            <option value="network">Network</option>
+                            <option value="mobile">Mobile APK</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <i class="fas fa-rocket"></i> Start Scan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Live Results -->
+<div class="row mt-4" id="results" style="display: none;">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Live Scan Progress</h5>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         id="progressBar" style="width: 0%"></div>
+                </div>
+                <div id="scanLogs" class="border p-3 bg-dark text-light" style="height: 300px; overflow-y: auto; font-family: monospace;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Vulnerability Summary</div>
+            <div class="card-body">
+                <canvas id="vulnChart" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+document.getElementById('scanForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const response = await fetch('/scan', {
+        method: 'POST',
+        body: formData
+    });
+    const data = await response.json();
+    startLiveScan(data.scan_id);
+});
+
+async function startLiveScan(scanId) {
+    document.getElementById('results').style.display = 'block';
+    
+    const interval = setInterval(async () => {
+        const response = await fetch(`/api/scan/${scanId}`);
+        const data = await response.json();
+        
+        // Update progress
+        document.getElementById('progressBar').style.width = data.scan.progress + '%';
+        document.getElementById('progressBar').textContent = data.scan.progress + '%';
+        
+        // Update vulnerabilities chart
+        updateVulnChart(data.vulnerabilities);
+        
+        if (data.scan.status === 'completed') {
+            clearInterval(interval);
+            document.getElementById('scanLogs').innerHTML += '<div class="text-success">✓ Scan completed! Download report below.</div>';
+        }
+    }, 2000);
+}
+</script>
+{% endblock %}
