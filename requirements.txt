@@ -1,8 +1,7 @@
 flask==2.3.3
-python-nmap==0.7.1
 gunicorn==21.2.0
+python-nmap==0.7.1
 reportlab==4.0.4
-scikit-learn==1.2.2  # OLDER VERSION (compiles)
-numpy==1.24.3        # Compatible
-pandas==1.5.3
 PyMySQL==1.1.0
+numpy==1.24.3
+scikit-learn==1.2.2
