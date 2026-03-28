@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: securescana
+    env: python
+    buildCommand: "pip install --only-binary=all -r requirements.txt"
+    startCommand: "gunicorn app:app"

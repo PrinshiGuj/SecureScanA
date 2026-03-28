@@ -1,7 +1,16 @@
+# Render-safe versions (NO compile issues)
 flask==2.3.3
 gunicorn==21.2.0
 python-nmap==0.7.1
 reportlab==4.0.4
 PyMySQL==1.1.0
+requests==2.31.0
+Werkzeug==2.3.7
+
+# AI (pre-compiled wheels only)
 numpy==1.24.3
 scikit-learn==1.2.2
+pandas==1.5.3
+
+# Force binary wheels (NO compilation)
+--only-binary=all
