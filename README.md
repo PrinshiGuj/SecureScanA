@@ -42,7 +42,7 @@ Security teams trust SecureScan A for:
 
 git clone https://github.com/PrinshiGuj/SecureScanA.git
 
-cd securescana
+cd SecureScanA
 
 python3 -m venv venv
 source venv/bin/activate
