@@ -40,7 +40,7 @@ Security teams trust SecureScan A for:
 ⭐ Star if useful! Contributions welcome.
 
 
-git clone https://github.com/PrinsGuj/securescana.git
+git clone https://github.com/PrinshiGuj/SecureScanA.git
 
 cd securescana
 
